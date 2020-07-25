@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(setModeToLocal);
+  function setModeToLocal() {
+    //get item from local storage
+    const savedMode = JSON.parse(localStorage.getItem("dark"));
+    return savedMode || false;
+  }
+  useEffect(() => {
+    //set item to local storage
+    localStorage.setItem("dark", JSON.stringify(darkMode));
+  }, [darkMode]);
   return (
     <div className={darkMode ? "dark-mode" : "light-mode"}>
       <nav>
